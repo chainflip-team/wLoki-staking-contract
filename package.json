@@ -1,0 +1,28 @@
+{
+  "name": "wloki-stake-contract",
+  "version": "1.0.0",
+  "description": "Staking smark contract for wLoki",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "sol-merger \"./contracts/StakingRewards.sol\" ./build",
+    "test": "truffle build && mocha --recursive"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.4.0",
+    "sol-merger": "^3.1.0",
+    "solc": "^0.5.0",
+    "solhint": "^3.2.1",
+    "truffle": "^5.1.47"
+  },
+  "devDependencies": {
+    "@openzeppelin/test-environment": "^0.1.5",
+    "@openzeppelin/test-helpers": "^0.5.6",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3"
+  }
+}
