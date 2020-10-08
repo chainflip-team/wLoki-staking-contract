@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "sol-merger \"./contracts/StakingRewards.sol\" ./build",
+    "build": "sol-merger \"./contracts/StakingRewards.sol\" ./compiled",
     "test": "truffle build && mocha --recursive"
   },
   "author": "",

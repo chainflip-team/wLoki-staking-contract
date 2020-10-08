@@ -2,6 +2,8 @@
 
 This contract is derived from the [Pickle Finance staking rewards contract](https://github.com/pickle-finance/protocol/blob/master/src/staking-rewards.sol). No changes in logic have been made and it is being used as is.
 
+The compiled contract can be found in the `compiled` directory.
+
 ## How it works
 
 - Users stake into the contract
@@ -27,6 +29,4 @@ Deployment can be done via [Remix](https://remix.ethereum.org/)
 nvm use 12.18.0
 npm install
 npm run build
-
-# StakingRewards.sol file can be found inside the build directory
 ```
