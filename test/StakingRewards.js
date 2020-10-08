@@ -8,6 +8,9 @@ const { assert } = require("chai");
 
 const DAY = 24 * 60 * 60;
 
+const REWARD_DECIMALS = 1e9;
+const STAKING_DECIMALS = 1e18;
+
 describe("StakingRewards", () => {
   const [owner, user, another] = accounts;
 
@@ -16,11 +19,11 @@ describe("StakingRewards", () => {
   let rewardsToken;
 
   beforeEach(async () => {
-    stakingToken = await MockERC20.new("staking", "STK", 18, {
+    stakingToken = await MockERC20.new("staking", "STK", {
       from: owner,
     });
 
-    rewardsToken = await MockERC20.new("reward", "RWD", 9, {
+    rewardsToken = await MockERC20.new("reward", "RWD", {
       from: owner,
     });
 
@@ -34,8 +37,8 @@ describe("StakingRewards", () => {
   });
 
   it("should stake correctly", async () => {
-    const stakeAmount = (100 * 1e18).toString();
-    const rewardAmount = (100 * 1e9).toString();
+    const stakeAmount = (100 * STAKING_DECIMALS).toString();
+    const rewardAmount = (100 * REWARD_DECIMALS).toString();
 
     await stakingToken.mint(user, stakeAmount);
     await rewardsToken.mint(owner, rewardAmount);
@@ -93,7 +96,7 @@ describe("StakingRewards", () => {
 
     // Check that user got the rewards
     const rewardBalance = await rewardsToken.balanceOf(user);
-    const numberBalance = rewardBalance.toNumber() / 1e9;
+    const numberBalance = rewardBalance.toNumber() / REWARD_DECIMALS;
     assert.isTrue(numberBalance > 199.9); // Make sure the user got the full reward
 
     // Earn 0 after period finished
@@ -102,9 +105,9 @@ describe("StakingRewards", () => {
   });
 
   it("should divide rewards according to shares", async () => {
-    const firstStakeAmount = (1e18).toString();
-    const secondStakeAmount = (3 * 1e18).toString();
-    const rewardAmount = (100 * 1e9).toString();
+    const firstStakeAmount = STAKING_DECIMALS.toString();
+    const secondStakeAmount = (3 * STAKING_DECIMALS).toString();
+    const rewardAmount = (100 * REWARD_DECIMALS).toString();
 
     await stakingToken.mint(user, firstStakeAmount);
     await stakingToken.mint(another, secondStakeAmount);
@@ -135,17 +138,17 @@ describe("StakingRewards", () => {
 
     // Check that user got the rewards
     const rewardBalance = await rewardsToken.balanceOf(user);
-    const numberBalance = rewardBalance.toNumber() / 1e9;
+    const numberBalance = rewardBalance.toNumber() / REWARD_DECIMALS;
     assert.isTrue(numberBalance > 0 && numberBalance <= 25); // user owns 25%
 
     // Check that user got the rewards
     const rewardBalance2 = await rewardsToken.balanceOf(another);
-    const numberBalance2 = rewardBalance2.toNumber() / 1e9;
+    const numberBalance2 = rewardBalance2.toNumber() / REWARD_DECIMALS;
     assert.isTrue(numberBalance2 > 25 && numberBalance <= 75); // user owns 75%
 
     // Check that user got the rewards
     const contractBalance = await rewardsToken.balanceOf(contract.address);
-    const contractNumberBalance = contractBalance.toNumber() / 1e9;
+    const contractNumberBalance = contractBalance.toNumber() / REWARD_DECIMALS;
     assert.isTrue(contractNumberBalance < 1); // Contract owns 0%
   });
 });

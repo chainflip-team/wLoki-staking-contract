@@ -13,13 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openzeppelin/contracts": "^2.4.0",
+    "@openzeppelin/contracts": "^3.2.0",
     "sol-merger": "^3.1.0",
     "solc": "^0.5.0",
     "solhint": "^3.2.1",
-    "truffle": "^5.1.47"
-  },
-  "devDependencies": {
+    "truffle": "^5.1.47",
     "@openzeppelin/test-environment": "^0.1.5",
     "@openzeppelin/test-helpers": "^0.5.6",
     "chai": "^4.2.0",

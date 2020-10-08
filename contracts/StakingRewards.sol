@@ -1,23 +1,22 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/lifecycle/Pausable.sol";
-import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract StakingRewards is ReentrancyGuard, Pausable, Ownable {
     using SafeMath for uint256;
-    using SafeERC20 for ERC20Detailed;
+    using SafeERC20 for IERC20;
 
     /* ========== STATE VARIABLES ========== */
 
-    ERC20Detailed public rewardsToken;
-    ERC20Detailed public stakingToken;
+    IERC20 public rewardsToken;
+    IERC20 public stakingToken;
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public rewardsDuration = 7 days;
@@ -33,8 +32,8 @@ contract StakingRewards is ReentrancyGuard, Pausable, Ownable {
     /* ========== CONSTRUCTOR ========== */
 
     constructor(address _rewardsToken, address _stakingToken) public {
-        rewardsToken = ERC20Detailed(_rewardsToken);
-        stakingToken = ERC20Detailed(_stakingToken);
+        rewardsToken = IERC20(_rewardsToken);
+        stakingToken = IERC20(_stakingToken);
     }
 
     /* ========== VIEWS ========== */
@@ -163,7 +162,7 @@ contract StakingRewards is ReentrancyGuard, Pausable, Ownable {
                 tokenAddress != address(rewardsToken),
             "Cannot withdraw the staking or rewards tokens"
         );
-        ERC20Detailed(tokenAddress).safeTransfer(this.owner(), tokenAmount);
+        IERC20(tokenAddress).safeTransfer(this.owner(), tokenAmount);
         emit Recovered(tokenAddress, tokenAmount);
     }
 
