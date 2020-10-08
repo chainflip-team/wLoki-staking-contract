@@ -1,6 +1,6 @@
 # wLoki Staking Contract
 
-This contract is derived from the [Pickle Finance staking rewards contract](https://github.com/pickle-finance/protocol/blob/master/src/staking-rewards.sol). No changes in logic have been made and it is being uses as is.
+This contract is derived from the [Pickle Finance staking rewards contract](https://github.com/pickle-finance/protocol/blob/master/src/staking-rewards.sol). No changes in logic have been made and it is being used as is.
 
 ## How it works
 
